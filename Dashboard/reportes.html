@@ -28,7 +28,11 @@
     <div class="flex h-full">
         
         <aside id="sidebar" class="bg-gray-800 p-4 w-64 overflow-hidden transition-all duration-300">
-      
+          <div class="flex items-center space-x-2 mb-4">
+            <img src="/monlau-fp-es.png" alt="Company Logo" class="w-8 h-8">
+            <span class="text-white font-bold">Monlau</span>
+          </div>
+          <hr class="border-gray-700 mb-4">
         <nav class="space-y-4">
           <a
             href="index.html"
@@ -198,63 +202,41 @@
 
         <!-- Main Content -->
         <main class="flex-1 overflow-y-auto p-6">
-          <h1 class="text-3xl font-bold text-gray-100 mb-6">Dashboard</h1>
+          <h1 class="text-3xl font-bold text-gray-100 mb-6">Reportes</h1>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div class="bg-gray-800 p-4 rounded-lg shadow reporte-card">
-              <h3 class="text-lg font-semibold mb-2">Total de Ventas</h3>
-              <p class="text-4xl font-bold" id="totalVentas">€0</p>
+              <h3 class="text-lg font-semibold mb-2">Ingresos Totales</h3>
+              <p class="text-4xl font-bold" id="totalIngresos">€0</p>
               <p class="text-green-400 mt-2">
-                ↑ <span id="porcentajeVentas">0</span>% vs mes anterior
+                ↑ <span id="porcentajeIngresos">0</span>% vs mes anterior
               </p>
             </div>
 
             <div class="bg-gray-800 p-4 rounded-lg shadow reporte-card">
-              <h3 class="text-lg font-semibold mb-2">Nuevos Clientes</h3>
-              <p class="text-4xl font-bold" id="nuevosClientes">0</p>
+              <h3 class="text-lg font-semibold mb-2">Clientes Activos</h3>
+              <p class="text-4xl font-bold" id="clientesActivos">0</p>
               <p class="text-green-400 mt-2">
-                ↑ <span id="porcentajeClientes">0</span>% vs mes anterior
-              </p>
-            </div>
-
-            <div class="bg-gray-800 p-4 rounded-lg shadow reporte-card">
-              <h3 class="text-lg font-semibold mb-2">Tasa de Conversión</h3>
-              <p class="text-4xl font-bold" id="tasaConversion">0%</p>
-              <p class="text-red-400 mt-2">
-                ↓ <span id="porcentajeConversion">0</span>% vs mes anterior
+                ↑ <span id="porcentajeClientesActivos">0</span>% vs mes anterior
               </p>
             </div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div class="grid grid-cols-1 gap-6">
-              <div
-                class="bg-gray-800 p-4 rounded-lg shadow reporte-card inline-block"
-              >
-                <h3 class="text-lg font-semibold mb-4">Ventas Mensuales</h3>
-                <canvas id="ventasMensualesChart"></canvas>
-              </div>
-              <div
-                class="bg-gray-800 p-4 rounded-lg shadow reporte-card inline-block"
-              >
-                <h3 class="text-lg font-semibold mb-4">Ventas Brubuja</h3>
-                <canvas id="ventasBurbuja"></canvas>
-              </div>
+            <div class="bg-gray-800 p-4 rounded-lg shadow reporte-card">
+              <h3 class="text-lg font-semibold mb-4">Ingresos Mensuales</h3>
+              <canvas id="ingresosMensualesChart"></canvas>
             </div>
 
             <div class="bg-gray-800 p-4 rounded-lg shadow reporte-card">
-              <h3 class="text-lg font-semibold mb-4">
-                Distribución de Productos
-              </h3>
-              <canvas id="distribucionProductosChart"></canvas>
+              <h3 class="text-lg font-semibold mb-4">Distribución de Clientes</h3>
+              <canvas id="distribucionClientesChart"></canvas>
             </div>
           </div>
 
           <div class="bg-gray-800 rounded-lg shadow reporte-card">
             <div class="p-4">
-              <h3 class="text-lg font-semibold mb-4">
-                Reporte Detallado de Ventas
-              </h3>
+              <h3 class="text-lg font-semibold mb-4">Reporte Detallado de Ingresos</h3>
               <div class="flex justify-between items-center mb-4">
                 <select
                   id="mesSelector"
@@ -278,11 +260,11 @@
                   <thead>
                     <tr class="border-b border-gray-700">
                       <th class="py-2">Producto</th>
-                      <th class="py-2">Unidades Vendidas</th>
                       <th class="py-2">Ingresos</th>
+                      <th class="py-2">Clientes</th>
                     </tr>
                   </thead>
-                  <tbody id="tablaVentas">
+                  <tbody id="tablaIngresos">
                     <!-- Los datos de la tabla se llenarán dinámicamente con JavaScript -->
                   </tbody>
                 </table>
@@ -329,76 +311,18 @@
       }
 
       // Actualizar estadísticas
-      document.getElementById("totalVentas").textContent =
-        formatCurrency(285420);
-      animateValue("porcentajeVentas", 0, 12, 1000);
-      animateValue("nuevosClientes", 0, 143, 1500);
-      animateValue("porcentajeClientes", 0, 8, 1000);
-      document.getElementById("tasaConversion").textContent = "3.2%";
-      animateValue("porcentajeConversion", 0, 0.5, 1000);
-      const ventasBurbujaCtx = document
-        .getElementById("ventasBurbuja")
+      document.getElementById("totalIngresos").textContent =
+        formatCurrency(500000);
+      animateValue("porcentajeIngresos", 0, 15, 1000);
+      animateValue("clientesActivos", 0, 200, 1500);
+      animateValue("porcentajeClientesActivos", 0, 10, 1000);
+
+      // Gráfico de Ingresos Mensuales
+      const ingresosMensualesCtx = document
+        .getElementById("ingresosMensualesChart")
         .getContext("2d");
-        var ventasMensualesChart = new Chart(ventasBurbujaCtx, {
-        type: 'bubble',  // Tipo de gráfico: burbuja
-        data: {
-            datasets: [{
-                label: 'Ventas Mensuales',
-                data: [
-                    { x: 1, y: 3, r: 10 }, // X: mes, Y: ventas, r: tamaño de la burbuja
-                    { x: 2, y: 4, r: 15 },
-                    { x: 3, y: 2, r: 8 },
-                    { x: 4, y: 5, r: 12 },
-                    { x: 5, y: 6, r: 20 },
-                    { x: 6, y: 7, r: 18 }
-                ],
-                backgroundColor: 'rgba(75, 192, 192, 0.6)',  // Color de la burbuja
-                borderColor: 'rgba(75, 192, 192, 1)',  // Borde de la burbuja
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(tooltipItem) {
-                            return 'Mes: ' + tooltipItem.raw.x + ', Ventas: ' + tooltipItem.raw.y + ', Tamaño: ' + tooltipItem.raw.r;
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    type: 'linear',
-                    position: 'bottom',
-                    min: 0,
-                    max: 12,  // Limita el rango del eje X (ejemplo: meses del año)
-                    title: {
-                        display: true,
-                        text: 'Mes'
-                    }
-                },
-                y: {
-                    min: 0,
-                    max: 10,  // Limita el rango del eje Y
-                    title: {
-                        display: true,
-                        text: 'Ventas'
-                    }
-                }
-            }
-        }
-    });
-      // Gráfico de Ventas Mensuales
-      const ventasMensualesCtx = document
-        .getElementById("ventasMensualesChart")
-        .getContext("2d");
-      new Chart(ventasMensualesCtx, {
-        type: "bar",
+      new Chart(ingresosMensualesCtx, {
+        type: "line",
         data: {
           labels: [
             "Ene",
@@ -416,14 +340,15 @@
           ],
           datasets: [
             {
-              label: "Ventas Mensuales",
+              label: "Ingresos Mensuales",
               data: [
-                12000, 19000, 15000, 17000, 22000, 24000, 20000, 25000, 23000,
-                28000, 30000, 35000,
+                40000, 45000, 50000, 55000, 60000, 65000, 70000, 75000, 80000,
+                85000, 90000, 95000,
               ],
-              backgroundColor: "rgba(75, 192, 192, 0.6)",
-              borderColor: "rgba(75, 192, 192, 1)",
+              backgroundColor: "rgba(54, 162, 235, 0.6)",
+              borderColor: "rgba(54, 162, 235, 1)",
               borderWidth: 1,
+              fill: true,
             },
           ],
         },
@@ -442,23 +367,23 @@
         },
       });
 
-      // Gráfico de Distribución de Productos
-      const distribucionProductosCtx = document
-        .getElementById("distribucionProductosChart")
+      // Gráfico de Distribución de Clientes
+      const distribucionClientesCtx = document
+        .getElementById("distribucionClientesChart")
         .getContext("2d");
-      new Chart(distribucionProductosCtx, {
-        type: "doughnut",
+      new Chart(distribucionClientesCtx, {
+        type: "pie",
         data: {
           labels: [
-            "Producto A",
-            "Producto B",
-            "Producto C",
-            "Producto D",
-            "Producto E",
+            "Cliente A",
+            "Cliente B",
+            "Cliente C",
+            "Cliente D",
+            "Cliente E",
           ],
           datasets: [
             {
-              data: [30, 25, 20, 15, 10],
+              data: [40, 30, 15, 10, 5],
               backgroundColor: [
                 "rgba(255, 99, 132, 0.8)",
                 "rgba(54, 162, 235, 0.8)",
@@ -485,38 +410,38 @@
             },
             title: {
               display: true,
-              text: "Distribución de Ventas por Producto",
+              text: "Distribución de Clientes",
             },
           },
         },
       });
 
-      // Datos de ejemplo para la tabla de ventas
-      const datosVentas = [
-        { producto: "Producto A", unidades: 1234, ingresos: 61700 },
-        { producto: "Producto B", unidades: 987, ingresos: 49350 },
-        { producto: "Producto C", unidades: 756, ingresos: 37800 },
-        { producto: "Producto D", unidades: 543, ingresos: 27150 },
-        { producto: "Producto E", unidades: 321, ingresos: 16050 },
+      // Datos de ejemplo para la tabla de ingresos
+      const datosIngresos = [
+        { producto: "Producto A", ingresos: 123400, clientes: 50 },
+        { producto: "Producto B", ingresos: 98700, clientes: 40 },
+        { producto: "Producto C", ingresos: 75600, clientes: 30 },
+        { producto: "Producto D", ingresos: 54300, clientes: 20 },
+        { producto: "Producto E", ingresos: 32100, clientes: 10 },
       ];
 
-      // Función para llenar la tabla de ventas
-      function llenarTablaVentas(datos) {
-        const tablaVentas = document.getElementById("tablaVentas");
-        tablaVentas.innerHTML = "";
+      // Función para llenar la tabla de ingresos
+      function llenarTablaIngresos(datos) {
+        const tablaIngresos = document.getElementById("tablaIngresos");
+        tablaIngresos.innerHTML = "";
         datos.forEach((item) => {
           const fila = document.createElement("tr");
           fila.innerHTML = `
                     <td class="py-2">${item.producto}</td>
-                    <td class="py-2">${item.unidades.toLocaleString()}</td>
                     <td class="py-2">${formatCurrency(item.ingresos)}</td>
+                    <td class="py-2">${item.clientes.toLocaleString()}</td>
                 `;
-          tablaVentas.appendChild(fila);
+          tablaIngresos.appendChild(fila);
         });
       }
 
       // Llenar la tabla inicialmente
-      llenarTablaVentas(datosVentas);
+      llenarTablaIngresos(datosIngresos);
 
       // Evento para el selector de mes
       document
@@ -524,7 +449,7 @@
         .addEventListener("change", function () {
           // Aquí se simularía la carga de datos para el mes seleccionado
           // Por ahora, solo recargamos los mismos datos
-          llenarTablaVentas(datosVentas);
+          llenarTablaIngresos(datosIngresos);
         });
 
       // Evento para el botón de descarga
@@ -551,13 +476,14 @@
           userMenu.classList.add("hidden");
         }
       });
-      const toggleSidebar = document.getElementById('toggleSidebar');
-  const sidebar = document.getElementById('sidebar');
 
-  toggleSidebar.addEventListener('click', () => {
-    sidebar.classList.toggle('w-64');
-    sidebar.classList.toggle('w-0');
-  });
+      const toggleSidebar = document.getElementById('toggleSidebar');
+      const sidebar = document.getElementById('sidebar');
+
+      toggleSidebar.addEventListener('click', () => {
+        sidebar.classList.toggle('w-64');
+        sidebar.classList.toggle('w-0');
+      });
     </script>
   </body>
 </html>

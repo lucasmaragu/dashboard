@@ -18,7 +18,12 @@
 <body class="h-full font-sf-mono text-gray-300">
     <div class="flex h-full">
         <!-- Sidebar -->
-        <aside class="w-64 bg-gray-800 p-4 rounded-r-lg">
+        <aside id="sidebar" class="w-64 bg-gray-800 p-4 rounded-r-lg overflow-hidden transition-all duration-300">
+            <div class="flex items-center space-x-2 mb-4">
+                <img src="/monlau-fp-es.png" alt="Company Logo" class="w-8 h-8">
+                <span class="text-white font-bold">Monlau</span>
+            </div>
+            <hr class="border-gray-700 mb-4">
             <nav class="space-y-4">
                 <a href="index.html" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -50,11 +55,16 @@
         <div class="flex-1 flex flex-col overflow-hidden">
             <!-- Header -->
             <header class="bg-gray-800 p-4 flex justify-between items-center rounded-b-lg">
+                <button id="toggleSidebar" class="text-gray-300 hover:text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
                 <div class="flex-1 max-w-xl">
                     <input type="text" placeholder="Buscar..." class="w-full bg-gray-700 text-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ease-in-out" />
                 </div>
                 <div class="flex items-center space-x-4">
-                    <button class="relative">
+                    <button id="toggleSidebar" class="text-gray-300 hover:text-white focus:outline-none">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
                         </svg>
@@ -144,5 +154,24 @@
             </main>
         </div>
     </div>
+    <script>
+        // Animación de entrada para las tarjetas
+        anime({
+            targets: ".reporte-card",
+            opacity: [0, 1],
+            translateY: [20, 0],
+            delay: anime.stagger(100),
+            easing: "easeOutQuad",
+            duration: 800,
+        });
+
+        const toggleSidebar = document.getElementById('toggleSidebar');
+        const sidebar = document.getElementById('sidebar');
+
+        toggleSidebar.addEventListener('click', () => {
+            sidebar.classList.toggle('w-64');
+            sidebar.classList.toggle('w-0');
+        });
+    </script>
 </body>
 </html>

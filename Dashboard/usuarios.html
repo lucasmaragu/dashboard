@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-gray-900">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Usuarios - Dashboard Administrativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float { animation: float 3s ease-in-out infinite; }
+    </style>
+</head>
+<body class="h-full font-sf-mono text-gray-300">
+    <div class="flex h-full">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-800 p-4 rounded-r-lg">
+            <nav class="space-y-4">
+                <a href="index.html" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="reportes.html" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <span>Reportes</span>
+                </a>
+                <a href="usuarios.html" class="flex items-center space-x-2 p-2 rounded-lg bg-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <span>Usuarios</span>
+                </a>
+                <a href="configuracion.html" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span>Configuración</span>
+                </a>
+            </nav>
+        </aside>
+
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Header -->
+            <header class="bg-gray-800 p-4 flex justify-between items-center rounded-b-lg">
+                <div class="flex-1 max-w-xl">
+                    <input type="text" placeholder="Buscar..." class="w-full bg-gray-700 text-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ease-in-out" />
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="relative">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                        </svg>
+                        <span class="absolute top-0 right-0 bg-red-500 rounded-full w-2 h-2"></span>
+                    </button>
+                    <div class="relative">
+                        <button id="userMenuButton" class="flex items-center space-x-2">
+                            <img class="w-8 h-8 rounded-full" src="https://randomuser.me/api/portraits/men/75.jpg" alt="Usuario" />
+                            <span>Usuario</span>
+                        </button>
+                        <div id="userMenu" class="hidden absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg py-2">
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-700">Perfil</a>
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-700">Configuración</a>
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-700">Cerrar sesión</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="flex-1 overflow-y-auto p-6">
+                <h1 class="text-3xl font-bold text-gray-100 mb-6">Gestión de Usuarios</h1>
+                
+                <div class="bg-gray-800 rounded-lg shadow p-6 mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <div class="flex space-x-2">
+                            <input type="text" id="searchInput" placeholder="Buscar usuarios..." class="bg-gray-700 text-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                            <select id="roleFilter" class="bg-gray-700 text-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="">Todos los roles</option>
+                                <option value="admin">Administrador</option>
+                                <option value="user">Usuario</option>
+                                <option value="editor">Editor</option>
+                            </select>
+                        </div>
+                        <button id="addUserBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors duration-300">
+                            Añadir Usuario
+                        </button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="border-b border-gray-700">
+                                    <th class="py-2 px-4">Nombre</th>
+                                    <th class="py-2 px-4">Email</th>
+                                    <th class="py-2 px-4">Rol</th>
+                                    <th class="py-2 px-4">Estado</th>
+                                    <th class="py-2 px-4">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="userTableBody">
+                                <!-- Los datos de la tabla se llenarán dinámicamente con JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 flex justify-between items-center">
+                        <div>
+                            <span>Mostrando <span id="startIndex">1</span>-<span id="endIndex">10</span> de <span id="totalUsers">0</span> usuarios</span>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button id="prevPage" class="bg-gray-700 text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">Anterior</button>
+                            <button id="nextPage" class="bg-gray-700 text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors duration-300">Siguiente</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal para añadir/editar usuario -->
+    <div id="userModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
+        <div class="bg-gray-800 p-6 rounded-lg w-96">
+            <h2 id="modalTitle" class="text-2xl font-bold mb-4">Añadir Usuario</h2>
+            <form id="userForm">
+                <div class="mb-4">
+                    <label for="userName" class="block text-sm font-medium text-gray-400">Nombre</label>
+                    <input type="text" id="userName" name="userName" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
+                </div>
+                <div class="mb-4">
+                    <label for="userEmail" class="block text-sm font-medium text-gray-400">Email</label>
+                    <input type="email" id="userEmail" name="userEmail" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
+                </div>
+                <div class="mb-4">
+                    <label for="userRole" class="block text-sm font-medium text-gray-400">Rol</label>
+                    <select id="userRole" name="userRole" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        <option value="user">Usuario</option>
+                        <option value="admin">Administrador</option>
+                        <option value="editor">Editor</option>
+                    </select>
+                </div>
+                <div class="flex justify-end space-x-2">
+                    <button type="button" id="cancelUserModal" class="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+
+    <script>
+ 
+
+
+        
+        const users = [
+            { id: 1, name: 'Ana García', email: 'ana@example.com', role: 'admin', status: 'Activo' },
+            { id: 2, name: 'Carlos López', email: 'carlos@example.com', role: 'user', status: 'Inactivo' },
+            { id: 3, name: 'Elena Martínez', email: 'elena@example.com', role: 'editor', status: 'Activo' },
+            { id: 4, name: 'David Rodríguez', email: 'david@example.com', role: 'user', status: 'Activo' },
+            { id: 5, name: 'Isabel Fernández', email: 'isabel@example.com', role: 'admin', status: 'Activo' },
+            // Añade más usuarios aquí...
+        ];
+
+        let currentPage = 1;
+        const usersPerPage = 10;
+
+        // Función para renderizar la tabla de usuarios
+        function renderUserTable(users) {
+            const tableBody = document.getElementById('userTableBody');
+            tableBody.innerHTML = '';
+
+            users.forEach(user => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="py-2 px-4">${user.name}</td>
+                    <td class="py-2 px-4">${user.email}</td>
+                    <td class="py-2 px-4">${user.role}</td>
+                    <td class="py-2 px-4">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${user.status === 'Activo' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                            ${user.status}
+                        </span>
+                    </td>
+                    <td class="py-2 px-4">
+                        <button class="text-blue-500 hover:text-blue-700 mr-2" onclick="editUser(${user.id})">Editar</button>
+                        <button class="text-red-500 hover:text-red-700" onclick="deleteUser(${user.id})">Eliminar</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+
+            updatePagination();
+        }
+
+        // Función para actualizar la paginación
+        function updatePagination() {
+            const startIndex = (currentPage - 1) * usersPerPage;
+            const endIndex = Math.min(startIndex + usersPerPage, users.length);
+            document.getElementById('startIndex').textContent = startIndex + 1;
+            document.getElementById('endIndex').textContent = endIndex;
+            document.getElementById('totalUsers').textContent = users.length;
+
+            document.getElementById('prevPage').disabled = currentPage === 1;
+            document.getElementById('nextPage').disabled = endIndex >= users.length;
+        }
+
+        // Evento para cambiar de página
+        document.getElementById('prevPage').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                renderUserTable(users.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage));
+            }
+        });
+
+        document.getElementById('nextPage').addEventListener('click', () => {
+            if (currentPage * usersPerPage < users.length) {
+                currentPage++;
+                renderUserTable(users.slice((currentPage - 1) * usersPerPage, currentPage * usersPerPage));
+            }
+        });
+
+        // Función para filtrar usuarios
+        function filterUsers() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const roleFilter = document.getElementById('roleFilter').value;
+
+            const filteredUsers = users.filter(user => 
+                (user.name.toLowerCase().includes(searchTerm) || user.email.toLowerCase().includes(searchTerm)) &&
+                (roleFilter === '' || user.role === roleFilter)
+            );
+
+            currentPage = 1;
+            renderUserTable(filteredUsers.slice(0, usersPerPage));
+        }
+
+        // Eventos para filtrar
+        document.getElementById('searchInput').addEventListener('input', filterUsers);
+        document.getElementById('roleFilter').addEventListener('change', filterUsers);
+
+        // Funciones para el modal de usuario
+        function showUserModal(title = 'Añadir Usuario', userData = null) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('userName').value = userData ? userData.name : '';
+            document.getElementById('userEmail').value = userData ? userData.email : '';
+            document.getElementById('userRole').value = userData ? userData.role : 'user';
+            document.getElementById('userModal').classList.remove('hidden');
+            document.getElementById('userModal').classList.add('flex');
+        }
+
+        function hideUserModal() {
+            document.getElementById('userModal').classList.add('hidden');
+            document.getElementById('userModal').classList.remove('flex');
+        }
+
+        // Evento para añadir usuario
+        document.getElementById('addUserBtn').addEventListener('click', () => showUserModal());
+
+        // Evento para cancelar el modal
+        document.getElementById('cancelUserModal').addEventListener('click', hideUserModal);
+
+        // Evento para guardar usuario
+        document.getElementById('userForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('userName').value;
+            const email = document.getElementById('userEmail').value;
+            const role = document.getElementById('userRole').value;
+            
+            // Aquí añadirías la lógica para guardar el usuario en tu backend
+            console.log('Guardando usuario:', { name, email, role });
+            
+            hideUserModal();
+            // Recargar la tabla de usuarios después de guardar
+            renderUserTable(users.slice(0, usersPerPage));
+        });
+
+        // Función para editar usuario
+        function editUser(userId) {
+            const user = users.find(u => u.id === userId);
+            if (user) {
+                showUserModal('Editar Usuario', user);
+            }
+        }
+
+        // Función para eliminar usuario
+        function deleteUser(userId) {
+            if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
+                // Aquí añadirías la lógica para eliminar el usuario en tu backend
+                console.log('Eliminando usuario:', userId);
+                // Recargar la tabla de usuarios después de eliminar
+                renderUserTable(users.slice(0, usersPerPage));
+            }
+        }
+
+        // Inicializar la tabla de usuarios
+        renderUserTable(users.slice(0, usersPerPage));
+
+        // Animación de entrada para los elementos de la página
+        anime({
+            targets: '.bg-gray-800',
+            opacity: [0, 1],
+            translateY: [20, 0],
+            delay: anime.stagger(100),
+            easing: 'easeOutQuad',
+            duration: 800
+        });
+
+        // Toggle del menú de usuario
+        const userMenuButton = document.getElementById('userMenuButton');
+        const userMenu = document.getElementById('userMenu');
+        userMenuButton.addEventListener('click', () => {
+            userMenu.classList.toggle('hidden');
+        });
+
+        // Cerrar el menú de usuario al hacer clic fuera
+        document.addEventListener('click', (event) => {
+            if (!userMenuButton.contains(event.target) && !userMenu.contains(event.target)) {
+                userMenu.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-gray-900">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configuración - Dashboard Administrativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .float { animation: float 3s ease-in-out infinite; }
+    </style>
+</head>
+<body class="h-full font-sf-mono text-gray-300">
+    <div class="flex h-full">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-800 p-4 rounded-r-lg">
+            <nav class="space-y-4">
+                <a href="index.html" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="reportes.html" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <span>Reportes</span>
+                </a>
+                <a href="usuarios.html" class="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <span>Usuarios</span>
+                </a>
+                <a href="configuracion.html" class="flex items-center space-x-2 p-2 rounded-lg bg-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <span>Configuración</span>
+                </a>
+            </nav>
+        </aside>
+
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Header -->
+            <header class="bg-gray-800 p-4 flex justify-between items-center rounded-b-lg">
+                <div class="flex-1 max-w-xl">
+                    <input type="text" placeholder="Buscar..." class="w-full bg-gray-700 text-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 ease-in-out" />
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="relative">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                        </svg>
+                        <span class="absolute top-0 right-0 bg-red-500 rounded-full w-2 h-2"></span>
+                    </button>
+                    <div class="relative">
+                        <button id="userMenuButton" class="flex items-center space-x-2">
+                            <img class="w-8 h-8 rounded-full" src="https://randomuser.me/api/portraits/men/75.jpg" alt="Usuario" />
+                            <span>Usuario</span>
+                        </button>
+                        <div id="userMenu" class="hidden absolute right-0 mt-2 w-48 bg-gray-800 rounded-lg shadow-lg py-2">
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-700">Perfil</a>
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-700">Configuración</a>
+                            <a href="#" class="block px-4 py-2 text-sm hover:bg-gray-700">Cerrar sesión</a>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="flex-1 overflow-y-auto p-6">
+                <h1 class="text-3xl font-bold text-gray-100 mb-6">Configuración</h1>
+                <div class="flex flex-row  space-x-4">
+                <div class="bg-gray-800 rounded-lg shadow p-6 w-1/2 mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-100 mb-4">Ajustes de la Cuenta</h2>
+                    <form action="#" method="POST">
+                        <div class="mb-4">
+                            <label for="username" class="block text-sm font-medium text-gray-400">Nombre de usuario</label>
+                            <input type="text" id="username" name="username" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-400">Correo electrónico</label>
+                            <input type="email" id="email" name="email" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="block text-sm font-medium text-gray-400">Contraseña</label>
+                            <input type="password" id="password" name="password" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" required>
+                        </div>
+                        <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Guardar Cambios</button>
+                    </form>
+                </div>
+                <div class="bg-gray-800 rounded-lg shadow p-6 w-1/2 mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-100 mb-4">Preferencias de Notificaciones</h2>
+                    <form action="#" method="POST">
+                        <div class="flex items-center mb-4">
+                            <input type="checkbox" id="notif-general" name="notif-general" class="bg-gray-700 border-gray-600 rounded text-blue-500 focus:ring focus:ring-blue-500">
+                            <label for="notif-general" class="ml-2 text-gray-400">Recibir notificaciones generales</label>
+                        </div>
+                        <div class="flex items-center mb-4">
+                            <input type="checkbox" id="notif-promos" name="notif-promos" class="bg-gray-700 border-gray-600 rounded text-blue-500 focus:ring focus:ring-blue-500">
+                            <label for="notif-promos" class="ml-2 text-gray-400">Recibir promociones y noticias</label>
+                        </div>
+                        <button type="submit" class="px-4  py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Guardar Notificaciones</button>
+                    </form>
+                </div>
+            </div>
+                <div class="flex flex-row  space-x-4">
+                <div class="bg-gray-800 rounded-lg shadow p-6 w-1/2 mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-100 mb-4">Preferencias de Tema</h2>
+                    <form action="#" method="POST" class="space-y-4">
+                        <div>
+                            <label for="theme" class="block text-sm font-medium text-gray-400">Seleccionar tema</label>
+                            <select id="theme" name="theme" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                                <option value="light">Claro</option>
+                                <option value="dark">Oscuro</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Guardar Tema</button>
+                    </form>
+                </div>
+                
+                <div class="bg-gray-800 rounded-lg shadow p-6 w-1/2 mb-6">
+                    <h2 class="text-2xl font-semibold text-gray-100 mb-4">Integraciones</h2>
+                    <form action="#" method="POST" class="space-y-4">
+                        <div>
+                            <label for="api-key" class="block text-sm font-medium text-gray-400">API Key</label>
+                            <input type="text" id="api-key" name="api-key" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        </div>
+                        <div>
+                            <label for="webhook-url" class="block text-sm font-medium text-gray-400">Webhook URL</label>
+                            <input type="text" id="webhook-url" name="webhook-url" class="mt-1 block w-full bg-gray-700 border-gray-600 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                        </div>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Guardar Integraciones</button>
+                    </form>
+                </div>
+                </div>  
+            </main>
+        </div>
+    </div>
+</body>
+</html>
